@@ -187,13 +187,32 @@
                         </form>
                     </div>
                 </div>
-            </div>
         
-        </div>
+
+                <div class="row mt-5 mb-5">
+                        <h2>Open States Latitude and Longitue Functionality</h2>
+                        <div class="col-sm-12">
+                            <form class="mb-5">
+                                <div class="form-row"></div>
+                                <div class="form-group col-sm-6">
+                                  <label for="latitudeinput">Latitude</label>    
+                                  <input type="text" class="form-control" id="latitudeinput" placeholder="Latitude">    
+                                </div>
+                                <div class="form-group col-sm-6">
+                                        <label for="longitudeinput">Longitude</label>    
+                                        <input type="text" class="form-control" id="longitudeinput" placeholder="Longitude">    
+                                      </div>
+
+                        </div>
+
+                            <button type="submit" class="btn btn-primary" id="submitgeo">Submit</button>
+                </div>
+            </div>
+
 
         <div class="container" id="osdumpsite">
                 
-            </div> 
+        </div> 
 
 
 
@@ -293,9 +312,12 @@ $("#submitos").on("click", function() {
 var OSstateInput = $("#osstates").val().trim().toLowerCase();
 
 
+
+
 // var OSqueryURL = "https://cors-anywhere.herokuapp.com/https://openstates.org/api/v1/legislators/?state=" + OSstateInput + "&apikey=" + OSAPIKey;
 
 var OSqueryURL = "https://cors-anywhere.herokuapp.com/https://openstates.org/api/v1/legislators/?state=" + OSstateInput + "&apikey=" + OSAPIKey + "&limit=9";
+
 
 
 
@@ -314,10 +336,12 @@ $.ajax({
 
       .then(function(instance) {
 
+          console.log(instance)
 
-        // Log the queryURL
-        console.log(instance);
-        for (i=0; i<instance.length; i++) {
+
+        // for (i=0; i<instance.length; i++) {
+            for (i=0; i<25; i++) {
+
                 console.log(instance[i]);
                 console.log("Name: " + instance[i].full_name);
                 console.log("URID: " + instance[i].id);
@@ -354,7 +378,52 @@ $.ajax({
 
 
 
+      $("#submitgeo").on("click", function(event) {
 
+        event.preventDefault();
+
+            $("#osdumpsite").empty()
+
+
+        var latitude = $("#latitudeinput").val().trim();
+
+        var longitude = $("#longitudeinput").val().trim();
+
+
+        var OSqueryURLGEO = "https://cors-anywhere.herokuapp.com/https://openstates.org/api/v1/legislators/geo/?lat=" + latitude + "&long=" + longitude + "&apikey=" + OSAPIKey;
+
+        $.ajax({
+            url: OSqueryURLGEO,
+            headers: {
+                "X-API-Key": "61090add-67ca-4358-841d-7983d3231aa0",
+                },
+
+            method: "GET"
+        })
+
+            .then(function(geolook) {
+                console.log(geolook)
+                for (i=0; i<geolook.length; i++) {
+
+                var newrow = $("<div>").addClass("row");
+
+                var newimage = $("<img>");
+
+                console.log(newimage);
+
+                newimage.attr("src", geolook[i].photo_url).attr("style", "width: 180px");
+
+                console.log(newimage);
+
+
+                (newrow).html('<div class="col-sm-3">' + newimage[0].outerHTML + '</div><div class="col-sm-3">' + geolook[i].full_name + '</div><div class="col-sm-3">' + geolook[i].party + '</div><div class="col-sm-3">District: ' + geolook[i].district + '</div>')
+                    
+                $("#osdumpsite").append(newrow);
+
+                }
+            });
+
+      });
 
 
 
