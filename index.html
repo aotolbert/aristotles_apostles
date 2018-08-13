@@ -5,6 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Whos' your Government?</title>
+    <style>
+            #map {
+                height: 400px;
+                /* The height is 400 pixels */
+                width: 100%;
+                /* The width is the width of the web page */
+            }
+        </style>
 </head>
 <body>
         <div class="container">
@@ -172,7 +180,12 @@
 
 
     <button id="submitos">Sumbit Open States</button>
-
+    <h2>Google Maps API</h2>
+    <div id="floating-panel">
+            <input id="address" type="textbox" value="Charlotte, NC">
+            <input id="submit" type="button" value="Locate">
+          </div>
+<div id="map"></div>
 
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
@@ -280,6 +293,37 @@ $.ajax({
 
 
 </script>
+    <script>
+            function initMap() {
+            var map = new google.maps.Map(document.getElementById('map'), {
+              zoom: 8,
+              center: {lat: 35.397, lng: -80}
+            });
+            var geocoder = new google.maps.Geocoder();
     
+            document.getElementById('submit').addEventListener('click', function() {
+              geocodeAddress(geocoder, map);
+            });
+          }
+    
+          function geocodeAddress(geocoder, resultsMap) {
+            var address = document.getElementById('address').value;
+            geocoder.geocode({'address': address}, function(results, status) {
+              if (status === 'OK') {
+                resultsMap.setCenter(results[0].geometry.location);
+                var marker = new google.maps.Marker({
+                  map: resultsMap,
+                  position: results[0].geometry.location
+                });
+              } else {
+                alert('Geocode was not successful for the following reason: ' + status);
+              }
+            });
+          }
+        </script>
+        <!--Google Map API-->
+    
+        <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD4Pa8hRs34M7iiaRMeUylEBAh6nyiNfB8&callback=initMap">
+        </script>
 </body>
 </html>
