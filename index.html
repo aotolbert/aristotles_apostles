@@ -6,14 +6,21 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Who's your Government?</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-
+    <style>
+            #map {
+                height: 400px;
+                /* The height is 400 pixels */
+                width: 75%;
+                /* The width is the width of the web page */
+            }
+        </style>
 </head>
 <body>
         <div class="container">
                 <div class="row">
                     <h2>ProPublica Rocks!</h2>
                     <div class="col-sm-12">
-                        <form class="mb-5">
+                        <form class="mb-5" id="ppform">
                             <div class="form-group">
                               <label for="ppaddressline1">Address 1</label>
                               <input type="text" class="form-control" id="ppaddressline1" placeholder="Enter street address">
@@ -86,8 +93,8 @@
                                             </select>
                                         </div>
                                     <div class="form-group col-md-2">
-                                      <label for="ppinputZip">Zip</label>
-                                      <input type="text" class="form-control" id="ppinputZip">
+                                      <label for="ppinputzip">Zip</label>
+                                      <input type="text" class="form-control" id="ppinputzip">
                                     </div>
 
                             </div>  
@@ -105,7 +112,7 @@
             <div class="row mt-5">
                     <h2>OpenStates Kicks ProPublica's Ass!</h2>
                     <div class="col-sm-12">
-                        <form class="mb-5">
+                        <form class="mb-5" id="osform">
                             <div class="form-group">
                               <label for="osaddressline1">Address 1</label>
                               <input type="text" class="form-control" id="osaddressline1" placeholder="Enter street address">
@@ -215,6 +222,19 @@
         </div> 
 
 
+        <div class="container">
+
+
+                <button id="submitos">Sumbit Open States</button>
+            
+                <h2>Google Maps API</h2>
+                <div id="floating-panel">
+                        <input id="address" type="textbox" value="Charlotte, NC">
+                        <input id="submit" type="button" value="Locate">
+                      </div>
+            <div class="mr-auto ml-auto mb-5" id="map"></div>
+            
+
 
 
 
@@ -222,7 +242,7 @@
 
 <script>
 
-
+var address;
 
 var PPAPIKey = "TQ2hslbjh61kVID2GwEOjzuQ8BzIauJScUHBfzJa";
 
@@ -232,9 +252,22 @@ var OSAPIKey = "61090add-67ca-4358-841d-7983d3231aa0";
 
 // var OSqueryURL = "https://cors-anywhere.herokuapp.com/https://openstates.org/api/v1/legislators/?state=nc&apikey=" + OSAPIKey;
 
+var ppaddressquery = "";
+
 $("#submitpp").on("click", function(event) {
     event.preventDefault();
     $("#ppdumpsite").empty()
+    console.log($("#ppaddressline1").val());
+    console.log($("#ppaddressline2").val());
+    console.log($("#ppinputCity").val());
+    console.log($("#ppstates").val());
+    console.log($("#ppinputzip").val());
+    ppaddressquery = $("#ppaddressline1").val() + " " + $("#ppaddressline2").val() + " " +  $("#ppinputCity").val() + " " +  $("#ppstates").val() + " " +  $("#ppinputzip").val();
+
+    address = ppaddressquery;
+
+    console.log(ppaddressquery);
+
 
     var stateInput = ($("#ppstates").val().trim());
     var PPqueryURL = "https://api.propublica.org/congress/v1/members/senate/" + stateInput + "/current.json";
@@ -311,8 +344,9 @@ $("#submitos").on("click", function() {
 
 var OSstateInput = $("#osstates").val().trim().toLowerCase();
 
+    osaddressquery = $("#osaddressline1").val() + " " + $("#osaddressline2").val() + " " +  $("#osinputCity").val() + " " +  $("#osstates").val() + " " +  $("#osinputzip").val();
 
-
+    address = osaddressquery;
 
 // var OSqueryURL = "https://cors-anywhere.herokuapp.com/https://openstates.org/api/v1/legislators/?state=" + OSstateInput + "&apikey=" + OSAPIKey;
 
@@ -425,8 +459,45 @@ $.ajax({
 
       });
 
+    function initMap() {
+            var map = new google.maps.Map(document.getElementById('map'), {
+              zoom: 8,
+              center: {lat: 35.397, lng: -80}
+            });
+            var geocoder = new google.maps.Geocoder();
+    
+            document.getElementById('submit').addEventListener('click', function() {
+              geocodeAddress(geocoder, map);
+            });
+          }
+    
+          function geocodeAddress(geocoder, resultsMap) {
+            // address = document.getElementById('address').value;
+            geocoder.geocode({'address': address}, function(results, status) {
+                console.log(results);
+                console.log(results[0].geometry.bounds);
+                //Longtitude
+                console.log(results[0].geometry.bounds.b.b);
+                //Latitude
+                console.log(results[0].geometry.bounds.f.f);
 
+              if (status === 'OK') {
+                resultsMap.setCenter(results[0].geometry.location);
+                var marker = new google.maps.Marker({
+                  map: resultsMap,
+                  position: results[0].geometry.location
+                });
+              } else {
+                alert('Geocode was not successful for the following reason: ' + status);
+              }
+            });
+          }
+        </script>
 
+        <!--Google Map API-->
+
+        <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD4Pa8hRs34M7iiaRMeUylEBAh6nyiNfB8&callback=initMap">
+        </script>
 
 
 </script>
