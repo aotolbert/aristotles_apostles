@@ -10,7 +10,6 @@
         crossorigin="anonymous">
     <style>
     </style>
-    <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
     <link rel="stylesheet" href="assets/css/style.css">
 </head>
 
@@ -18,9 +17,9 @@
         <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
-    <!-- Navbar -->
-    <nav class="navbar fixed-top navbar-expand-lg navbar-light bg-white">
-            <img src="assets/images/WMG_Logo.png" width="90" height="90" class="d-inline-block align-top float-left" alt="">
+      <!-- Navbar -->
+      <nav class="navbar fixed-top navbar-expand-lg navbar-light bg-white">
+        <img src="assets/images/WMG_Logo.png" width="90" height="90" class="d-inline-block align-top float-left" alt="">
         <a class="navbar-brand navTitle" href="#">Who's My Government?</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -40,6 +39,8 @@
             </ul>
         </div>
     </nav>
+   
+
     <!-- Image Section -->
     <div class="image-section thumbnail">
         <div class="parallax"></div>
@@ -47,9 +48,10 @@
             <h2 class="img-box-content">FIND OUT ABOUT YOUR LOCAL POLITICIANS</h2>
         </div>
     </div>
+
     <!-- Form Section -->
     <div class="container mt-5">
-            <div class="row">
+           <div class="row">
                 <div class="col-sm-6">
                         <form class="mb-5" id="form">
                                 <div class="form-group">
@@ -141,11 +143,15 @@
                 </div>            
             </div>
         </div>
+    
     <!-- Dumpsite for politicians-->
     <div class="dumpsite-box">
         <div class="container" id="dumpsite">
-    </div>                
-        </div> 
+
+        </div>                
+    </div> 
+   
+
     <!-- Footer Content -->
     <div class="container-fluid mt-5 text-center" id="footer1">
         <div class="row bg-light">
@@ -153,7 +159,7 @@
                 <img src="assets/images/WMG_Logo.png" href="brand image" width="250" height="250" class="img-responsive center-block">
             </div>
             <div class="col-md-5 col-sm-6 col-xs-6 mobile-center">
-                <ul class="nav flex-column">
+                    <ul class="nav flex-column">
                     <li class="footer-header text-left pt-4">
                         <h4>For More Information</h4>
                     </li>
@@ -175,11 +181,12 @@
             </div>
         </div>
     </div>
-    <!-- APIs/Bootstrap CDNs-->
+
+
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAu-AsJ69HTOHlJZBJ42aQOx6hldCxF4aY&callback=initMap">
     </script>
-    <!-- The section that makes it do stuff-->
     <script>
     
     var maploaded = false;
@@ -254,6 +261,7 @@
                 }
             });
             maploaded = true;
+
             };
     
         $("#submitajax").on("click", function(event) {
@@ -350,7 +358,7 @@
     
                         // for (i=0; i<instance.length; i++) {
                             for (i=0; i<instance.length; i++) {
-    
+
                                 console.log(instance[i]);
                                 console.log("Name: " + instance[i].full_name);
                                 console.log("URID: " + instance[i].id);
@@ -362,7 +370,20 @@
                                 console.log("Office Address: " + instance[i].office_address);
                                 console.log("Image REF: " + instance[i].photo_url);
     
-                                var newrow = $("<div>").addClass("row");
+                                var newrow = $("<div>").addClass("container");
+
+                                var govtlevel = $("<div>").addClass("row");
+
+                                    if (instance[i].chamber === "upper") {
+                                        govtlevel.html("<h2>Your State Senate Senator:</h2>");
+                                            console.log(govtlevel[0].innerHTML);
+                                    }
+
+                                    else if (instance[i].chamber === "lower") {
+                                        govtlevel.html("<h2>Your State House Of Representatives Rep:</h2>");
+                                        console.log(govtlevel[0].innerHTML);
+
+                                    }
     
                                 var newimage = $("<img>");
     
@@ -371,7 +392,7 @@
                                 console.log(newimage);
     
     
-                                (newrow).html('<div class="col-sm-3">' + newimage[0].outerHTML + '</div><div class="col-sm-3">' + instance[i].full_name + '</div><div class="col-sm-3">' + instance[i].party + '</div><div class="col-sm-3">District: ' + instance[i].district + '</div>')
+                                (newrow).html('<div class="row">' + govtlevel[0].innerHTML + '</div><div class="row"><div class="col-sm-3">' + newimage[0].outerHTML + '</div><div class="col-sm-3">Name:<br>' + instance[i].full_name + '</div><div class="col-sm-3">Party:<br>' + instance[i].party + '</div><div class="col-sm-3">District: ' + instance[i].district + '</div></div>');
                                     
                                 $("#dumpsite").append(newrow);
     
