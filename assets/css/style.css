@@ -9,7 +9,7 @@
 .parallax {
     background-image: url(../images/WH-Image.jpg);
      /* Set a specific height */
-    min-height: 700px; 
+    min-height: 1000px; 
     /* Create the parallax scrolling effect */
     background-attachment: fixed;
     background-position: center;

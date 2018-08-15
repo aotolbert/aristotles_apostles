@@ -235,81 +235,82 @@
     
     }
     
-     function geocodeAddress(geocoder, resultsMap) {
+    function geocodeAddress(geocoder, resultsMap) {
          
-            // address = document.getElementById('address').value;
-            geocoder.geocode({'address': addressquery}, function(results, status) {
-                resultsMap.setZoom(10);
-                console.log(results);
-                console.log(results[0].geometry.bounds);
-                    longitude = (results[0].geometry.viewport.b.b);
-                    console.log(longitude);
-                    latitude = (results[0].geometry.viewport.f.f); 
-                    console.log(latitude);
-                    // var dynamicstateInput = results[0].address_components[6].short_name;
-                    // stateInput = dynamicstateInput;
-    
-                if (status === 'OK') {
-                resultsMap.setCenter(results[0].geometry.location);
-                var marker = new google.maps.Marker({
-                    map: resultsMap,
-                    zoom: 10,
-                    position: results[0].geometry.location
-                });
-                } else {
-                alert('Geocode was not successful for the following reason: ' + status);
-                }
-            });
-            maploaded = true;
+        // address = document.getElementById('address').value;
+        geocoder.geocode({'address': addressquery}, function(results, status) {
+            resultsMap.setZoom(10);
+            console.log(results);
+            console.log(results[0].geometry.bounds);
+                longitude = (results[0].geometry.viewport.b.b);
+                console.log(longitude);
+                latitude = (results[0].geometry.viewport.f.f); 
+                console.log(latitude);
+                // var dynamicstateInput = results[0].address_components[6].short_name;
+                // stateInput = dynamicstateInput;
 
-            };
+            if (status === 'OK') {
+            resultsMap.setCenter(results[0].geometry.location);
+            var marker = new google.maps.Marker({
+                map: resultsMap,
+                zoom: 10,
+                position: results[0].geometry.location
+            });
+            } else {
+            alert('Geocode was not successful for the following reason: ' + status);
+            }
+        });
+        maploaded = true;
+
+    };
     
-        $("#submitajax").on("click", function(event) {
-                event.preventDefault();
+    // $("#submitajax").on("click", function(event) {
     
-                console.log(addressquery);
+        event.preventDefault();
+
+        console.log(addressquery);
+
+        console.log(stateInput);
     
-                console.log(stateInput);
+        var PPqueryURL = "https://api.propublica.org/congress/v1/members/senate/" + stateInput + "/current.json";
     
-            var PPqueryURL = "https://api.propublica.org/congress/v1/members/senate/" + stateInput + "/current.json";
+        console.log(PPqueryURL);
     
-                console.log(PPqueryURL);
-    
-                $.ajax({
-                    url: PPqueryURL,
-                    headers: {
-                    "X-API-Key": "TQ2hslbjh61kVID2GwEOjzuQ8BzIauJScUHBfzJa"
-                    },
-    
-                    method: "GET",
-                    
-                    crossDomain: true
-                    
-    
-                }).then(function(response) {
-                    var party = "";
-                // Log the queryURL
-                console.log(response);
-                console.log(response.results);
-    
-                for (i=0; i<response.results.length; i++) {
-                    console.log(response.results[i]);
-                    console.log("Name: " + response.results[i].name);
-                    console.log("URID: " + response.results[i].id);
-                    if (response.results[i].party === "D") {
-                        party = "Democrat";
-                    console.log("Party: Democrat");
-                    }
-                    else if (response.results[i].party === "R") {
-                        party = "Republican";
-                    console.log("Party: Republican");
-                    }
-                    else {
-                    console.log("This is America you free thinking wackjob...");
-                    }
-    
-                    console.log("Twitter Handle: " + response.results[i].twitter_id);
-                    console.log("Up for re-election: " + response.results[i].next_election);
+        $.ajax({
+            url: PPqueryURL,
+            headers: {
+            "X-API-Key": "TQ2hslbjh61kVID2GwEOjzuQ8BzIauJScUHBfzJa"
+            },
+
+            method: "GET",
+            
+            crossDomain: true
+            
+
+        }).then(function(response) {
+            var party = "";
+            // Log the queryURL
+            console.log(response);
+            console.log(response.results);
+
+            for (i=0; i<response.results.length; i++) {
+                console.log(response.results[i]);
+                console.log("Name: " + response.results[i].name);
+                console.log("URID: " + response.results[i].id);
+                if (response.results[i].party === "D") {
+                    party = "Democrat";
+                console.log("Party: Democrat");
+                }
+                else if (response.results[i].party === "R") {
+                    party = "Republican";
+                console.log("Party: Republican");
+                }
+                else {
+                console.log("This is America you free thinking wackjob...");
+                }
+
+                console.log("Twitter Handle: " + response.results[i].twitter_id);
+                console.log("Up for re-election: " + response.results[i].next_election);
                     
     
                 var newrow = $("<div>").addClass("row");
@@ -322,7 +323,7 @@
     
             });
     
-        });
+    // });
                
     
     
