@@ -5,42 +5,42 @@
     /* The width is the width of the web page */
 }
 
-
-.content-image{
-    width: 100%;
-    height: 500px;
+/* gives cover image a parallax effect */
+.parallax {
+    background-image: url(../images/WH-Image.jpg);
+     /* Set a specific height */
+    min-height: 700px; 
+    /* Create the parallax scrolling effect */
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
 }
-/* img {
-    display: block;
-} */
+
+/*Centers the text box to the cover image*/
 
 .thumbnail {
     position: relative;
     display: inline-block;
     width: 100%;
 }
-.img-box {
+
+/*Set font, and adjusts text box on the image*/
+
+.img-text-box {
     position: absolute;
     margin: auto;
     top: 50%;
     left: 50%;
     transform: translate( -50%, -50% );
-    font-family: Georgia, 'Times New Roman', Times, serif;
+    font-family: Georgia, 'Times New Roman', Times, serif, 'Times New Roman', Times, serif;
     text-align: center;
     color: white;
-    font-weight: bold;
-    background-color: rgba(255, 0, 0, 0.62);
-    display: inline-block;
-
+    background-color: rgba(255, 0, 0, 0.747);
+    padding: 5%;
 }
 
-.img-box-content {
-    position: relative;
-    justify-content: center;
-    text-align: center;
-    color: white;
-    padding: 7.5%;
-}
+
 
 .submit-button {
     padding: 10px;
@@ -50,33 +50,45 @@
     background-color: lightblue;
 }
 
-button:hover {
-    background-color: grey;
+
+/* added space to buttons */
+.btn {
+    margin-right: 5px;
+    margin-bottom: 5px;
 }
 
-#footer1 {
-    height: 10%;
-}
-
+/* defines container of the copyright section */
 .copyright {
-    background-color: rgba(255, 0, 0, 0.6);
+    background-color: rgb(23, 175, 212);
     color: white;
     padding: 10px;
 }
+
+  /* on desktop the titles font will be larger */
+
 @media screen and (min-width: 601px) {
     a.navTitle {
       font-size: 30px;
     }
   }
+
+    /* on mobile the titles font will shrink */
+
   
 @media screen and (max-width: 600px) {
     a.navTitle {
-      font-size: 20px;
+      font-size: 15px;
     }
   }
 
-    .col-xs-12{
-            text-align: center;
-            margin: auto;
-     } 
+  /* on mobile the footer text will center */
+  @media screen and (max-width: 787px) {
+    .mobile-center{
+        float:none !important;
+        margin: 0 auto;
+        margin-bottom: 30px;
+        padding-left: 60px;
+        text-align: center;
+        }
+    }
   
