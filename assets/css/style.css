@@ -5,6 +5,15 @@
     /* The width is the width of the web page */
 }
 
+#profilephoto {
+
+    height: 275px;
+    /* The height is 400 pixels */
+    width: 200px;
+    /* The width is the width of the web page */
+
+}
+
 
 .parallax {
     background-image: url(../images/WH-Image.jpg);

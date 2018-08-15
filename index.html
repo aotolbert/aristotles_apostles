@@ -146,10 +146,17 @@
     
     <!-- Dumpsite for politicians-->
     <div class="dumpsite-box">
-        <div class="container" id="dumpsite">
+        <div class="container" id="federaldumpsite">
 
         </div>                
     </div> 
+
+    <div class="dumpsite-box">
+            <div class="container" id="statedumpsite">
+    
+            </div>                
+        </div> 
+       
    
 
     <!-- Footer Content -->
@@ -188,6 +195,8 @@
     <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAu-AsJ69HTOHlJZBJ42aQOx6hldCxF4aY&callback=initMap">
     </script>
     <script>
+        
+
     
     var maploaded = false;
     
@@ -265,6 +274,16 @@
             };
     
         $("#submitajax").on("click", function(event) {
+
+                    var alrs = ["Richard Shelby", "http://media.al.com/news_impact/photo/richard-shelby-mugjpg-785ec02a1375ea78.jpg", "https://www.shelby.senate.gov/public/"];
+                    var aldj = ["Doug Jones", "https://starsinforme-cyberpanthers.netdna-ssl.com/wp-content/uploads/2017/11/Doug-Jones.jpg", "https://www.jones.senate.gov/HomePage"];
+                    var aklm = ["Lisa Murkowski", "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0d/Lisa_Murkowski_official_photo.jpg/220px-Lisa_Murkowski_official_photo.jpg", "https://www.murkowski.senate.gov/"];
+                    var akds = ["Dan Sullivan", "https://upload.wikimedia.org/wikipedia/commons/thumb/1/10/Senator_Dan_Sullivan_official.jpg/220px-Senator_Dan_Sullivan_official.jpg", "https://www.sullivan.senate.gov/"];
+                    var azjm = ["John McCain", "https://az620379.vo.msecnd.net/images/Contracts/748e1f0f-5820-4c69-8642-555485126a2b.png", "https://www.mccain.senate.gov/public/"]; 
+                    var azjf = ["Jeff Flake", "https://az620379.vo.msecnd.net/images/Contracts/8a3c8eb2-c8a5-4409-9262-4059802515d3.png", "https://www.flake.senate.gov/public/"];
+
+            $("#federaldumpsite").empty();
+
                 event.preventDefault();
     
                 console.log(addressquery);
@@ -295,6 +314,51 @@
                 for (i=0; i<response.results.length; i++) {
                     console.log(response.results[i]);
                     console.log("Name: " + response.results[i].name);
+
+                    console.log((response.results[i].name).split(' ').join(''));
+
+                    var nospacename = (response.results[i].name).split(' ').join('');
+
+                    console.log (nospacename);
+
+                    if ((response.results[i].name) === "Doug Jones") {
+                        var picurl = (aldj[1]);
+                        var senatepic = ($("<img>").attr("src", picurl));
+                        console.log(senatepic);
+                    }
+
+                    else if ((response.results[i].name) === "Richard C. Shelby") {
+                        var picurl = (alrs[1]);
+                        var senatepic = ($("<img>").attr("src", picurl));
+                        console.log(senatepic);
+                    }
+
+                    else if ((response.results[i].name) === "Lisa Murkowski") {
+                        var picurl = (aklm[1]);
+                        var senatepic = ($("<img>").attr("src", picurl));
+                        console.log(senatepic);
+                    }
+                    else if ((response.results[i].name) === "Dan Sullivan") {
+                        var picurl = (akds[1]);
+                        var senatepic = ($("<img>").attr("src", picurl));
+                        console.log(senatepic);
+                    }
+                    else if ((response.results[i].name) === "John McCain") {
+                        var picurl = (azjm[1]);
+                        var senatepic = ($("<img>").attr("src", picurl));
+                        console.log(senatepic);
+                    }
+                    else if ((response.results[i].name) === "Jeff Flake") {
+                        var picurl = (azjf[1]);
+                        var senatepic = ($("<img>").attr("src", picurl));
+                        console.log(senatepic);
+                    }
+
+
+                    else {
+                        var senatepic = ($("<img>").attr("src", "https://thumbs.dreamstime.com/b/devil-suit-24681101.jpg"));
+                    }
+
                     console.log("URID: " + response.results[i].id);
                     if (response.results[i].party === "D") {
                         party = "Democrat";
@@ -312,13 +376,16 @@
                     console.log("Up for re-election: " + response.results[i].next_election);
                     
     
-                var newrow = $("<div>").addClass("row");
+                var newrow = $("<div>").addClass("row mb-3");
     
-                (newrow).html('<div class="col-sm-3">' + response.results[i].name + '</div><div class="col-sm-3">' + response.results[i].role + '</div><div class="col-sm-3">' + party + '</div><div class="col-sm-3">' + response.results[i].next_election + '</div>')
+                (newrow).html('<div class="col-sm-3"><img src="' + (senatepic[0].src) + '" id="profilephoto"></div><div class="col-sm-3">Name: ' + response.results[i].name + '</div><div class="col-sm-3">Party: ' + party + '</div><div class="col-sm-3">Up for Re-election in: ' + response.results[i].next_election + '</div>')
                     
-                $("#dumpsite").prepend(newrow);
+                $("#federaldumpsite").prepend(newrow);
     
                 };
+                var federalheader = $("<div>").addClass("row");
+                    federalheader.html("<h2>" + stateInput.toLocaleUpperCase() + "'s Federal Senate Members</h2>");
+                $("#federaldumpsite").prepend(federalheader);
     
             });
     
@@ -330,6 +397,9 @@
     
         $("#submitajax2").on("click", function(event) {
                 event.preventDefault();
+
+                $("#statedumpsite").empty();
+
     
                 console.log(addressquery);
     
@@ -375,12 +445,12 @@
                                 var govtlevel = $("<div>").addClass("row");
 
                                     if (instance[i].chamber === "upper") {
-                                        govtlevel.html("<h2>Your State Senate Senator:</h2>");
+                                        govtlevel.html("<h2>Your District's " + stateInput.toLocaleUpperCase() + " State Senator:</h2>");
                                             console.log(govtlevel[0].innerHTML);
                                     }
 
                                     else if (instance[i].chamber === "lower") {
-                                        govtlevel.html("<h2>Your State House Of Representatives Rep:</h2>");
+                                        govtlevel.html("<h2>Your " + stateInput.toLocaleUpperCase() + " House Of Representatives Rep:</h2>");
                                         console.log(govtlevel[0].innerHTML);
 
                                     }
@@ -394,7 +464,7 @@
     
                                 (newrow).html('<div class="row">' + govtlevel[0].innerHTML + '</div><div class="row"><div class="col-sm-3">' + newimage[0].outerHTML + '</div><div class="col-sm-3">Name:<br>' + instance[i].full_name + '</div><div class="col-sm-3">Party:<br>' + instance[i].party + '</div><div class="col-sm-3">District: ' + instance[i].district + '</div></div>');
                                     
-                                $("#dumpsite").append(newrow);
+                                $("#statedumpsite").append(newrow);
     
                                 
     
