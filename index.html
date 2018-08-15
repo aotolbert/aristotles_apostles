@@ -38,32 +38,11 @@
             </ul>
         </div>
     </nav>
-    <!-- Navbar -->
-    <!-- <nav class="navbar navbar-light bg-light">
-        <a class="navbar-brand" href="#">
-            <img src="/docs/4.1/assets/brand/bootstrap-solid.svg" width="30" height="30" class="d-inline-block align-top float-left"
-                alt="">
-            <h3>Who's My Government?</h3>
-        </a>
-        <div class="nav" id="navbarNav">
-            <ul class="nav justify-content-end">
-                <li class="nav-item">
-                <a class="nav-link active" href="#">Poll Locator</a>
-                    <a class="nav-link active" href="#">Pol Locator</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">About Us</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Contact</a>
-                </li>
-            </ul>
-        </div>
-    </nav> -->
+   
 
     <!-- Image Section -->
     <div class="image-section thumbnail">
-        <img src="assets/images/capitol1_image.jpg" class="content-image">
+        <img src="https://blog.apartminty.com/wp-content/uploads/2017/03/capitol-hill-dc-neighborhood-guide.jpg" class="content-image">
 
         <div class="img-box mr-auto ml-auto">
             <h2 class="img-box-content">FIND OUT ABOUT YOUR LOCAL POLITICIANS</h2>
@@ -204,7 +183,7 @@
 
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD4Pa8hRs34M7iiaRMeUylEBAh6nyiNfB8&callback=initMap">
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAu-AsJ69HTOHlJZBJ42aQOx6hldCxF4aY&callback=initMap">
     </script>
     <script>
     
@@ -255,8 +234,10 @@
     }
     
      function geocodeAddress(geocoder, resultsMap) {
+         
             // address = document.getElementById('address').value;
             geocoder.geocode({'address': addressquery}, function(results, status) {
+                resultsMap.setZoom(10);
                 console.log(results);
                 console.log(results[0].geometry.bounds);
                     longitude = (results[0].geometry.viewport.b.b);
@@ -278,6 +259,7 @@
                 }
             });
             maploaded = true;
+
             };
     
         $("#submitajax").on("click", function(event) {
