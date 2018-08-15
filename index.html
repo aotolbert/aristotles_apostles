@@ -10,6 +10,7 @@
         crossorigin="anonymous">
     <style>
     </style>
+    <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
     <link rel="stylesheet" href="assets/css/style.css">
 </head>
 
@@ -17,8 +18,9 @@
         <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
-    <nav class="navbar navbar-expand-lg navbar-light bg-white">
-            <img src="assets/images/WMG_Logo.png" width="100" height="100" class="d-inline-block align-top float-left" alt="">
+    <!-- Navbar -->
+    <nav class="navbar fixed-top navbar-expand-lg navbar-light bg-white">
+            <img src="assets/images/WMG_Logo.png" width="90" height="90" class="d-inline-block align-top float-left" alt="">
         <a class="navbar-brand navTitle" href="#">Who's My Government?</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -38,17 +40,13 @@
             </ul>
         </div>
     </nav>
-   
-
     <!-- Image Section -->
     <div class="image-section thumbnail">
-        <img src="https://blog.apartminty.com/wp-content/uploads/2017/03/capitol-hill-dc-neighborhood-guide.jpg" class="content-image">
-
-        <div class="img-box mr-auto ml-auto">
+        <div class="parallax"></div>
+        <div class="img-text-box mr-auto ml-auto">
             <h2 class="img-box-content">FIND OUT ABOUT YOUR LOCAL POLITICIANS</h2>
         </div>
     </div>
-
     <!-- Form Section -->
     <div class="container mt-5">
             <div class="row">
@@ -143,20 +141,18 @@
                 </div>            
             </div>
         </div>
-    
+    <!-- Dumpsite for politicians-->
+    <div class="dumpsite-box">
         <div class="container" id="dumpsite">
-                    
+    </div>                
         </div> 
-        
-   
-
     <!-- Footer Content -->
     <div class="container-fluid mt-5 text-center" id="footer1">
         <div class="row bg-light">
             <div class="col-md-3 col-sm-12">
-                <img src="assets/images/WMG_Logo.png" href="brand image" width="250" height="250" class="d-inline-block align-top float-left">
+                <img src="assets/images/WMG_Logo.png" href="brand image" width="250" height="250" class="img-responsive center-block">
             </div>
-            <div class="col-md-3 col-sm-12">
+            <div class="col-md-5 col-sm-6 col-xs-6 mobile-center">
                 <ul class="nav flex-column">
                     <li class="footer-header text-left pt-4">
                         <h4>For More Information</h4>
@@ -175,16 +171,15 @@
         </div>
         <div class="row">
             <div class="copyright col-sm-12">
-                Arostotles Apostles 2018
+                Aristotles Apostles 2018
             </div>
         </div>
     </div>
-
-
-
+    <!-- APIs/Bootstrap CDNs-->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAu-AsJ69HTOHlJZBJ42aQOx6hldCxF4aY&callback=initMap">
     </script>
+    <!-- The section that makes it do stuff-->
     <script>
     
     var maploaded = false;
@@ -259,7 +254,6 @@
                 }
             });
             maploaded = true;
-
             };
     
         $("#submitajax").on("click", function(event) {
