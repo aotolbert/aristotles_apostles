@@ -5,7 +5,16 @@
     /* The width is the width of the web page */
 }
 
-/* gives cover image a parallax effect */
+#profilephoto {
+
+    height: 275px;
+    /* The height is 400 pixels */
+    width: 200px;
+    /* The width is the width of the web page */
+
+}
+
+
 .parallax {
     background-image: url(../images/WH-Image.jpg);
      /* Set a specific height */
@@ -26,7 +35,6 @@
 }
 
 /*Set font, and adjusts text box on the image*/
-
 .img-text-box {
     position: absolute;
     margin: auto;
@@ -40,22 +48,16 @@
     padding: 5%;
 }
 
-
-
-.submit-button {
-    padding: 10px;
-    border-radius: 10px;
-    border-width: 10px;
-    font-size: 20px;
-    background-color: lightblue;
-}
-
-
-/* added space to buttons */
 .btn {
     margin-right: 5px;
     margin-bottom: 5px;
 }
+
+
+
+
+
+/* defines container of the copyright section */
 
 /* defines container of the copyright section */
 .copyright {
