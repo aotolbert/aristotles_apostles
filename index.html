@@ -65,7 +65,7 @@
                                 <div class="form-row">
                                         <div class="form-group col-md-6">
                                             <label for="inputCity">City</label>
-                                            <input type="text" class="form-control" id="inputCity">
+                                            <input type="text" class="form-control" id="inputCity" placeholder="City">
                                         </div>
                                         <div class="form-group col-sm-4">
                                                 <label for="states">State</label>
@@ -83,57 +83,55 @@
                                                         <option value="FL">Florida</option>
                                                         <option value="GA">Georgia</option>
                                                         <option value="HI">Hawaii</option>
-                                                        <option value="IA">Iowa</option>
                                                         <option value="ID">Idaho</option>
                                                         <option value="IL">Illinois</option>
                                                         <option value="IN">Indiana</option>
+                                                        <option value="IA">Iowa</option>
                                                         <option value="KS">Kansas</option>
                                                         <option value="KY">Kentucky</option>
                                                         <option value="LA">Louisiana</option>
+                                                        <option value="ME">Maine</option>
                                                         <option value="MA">Massachusetts</option>
                                                         <option value="MD">Maryland</option>
-                                                        <option value="ME">Maine</option>
                                                         <option value="MI">Michigan</option>
                                                         <option value="MN">Minnesota</option>
-                                                        <option value="MO">Missouri</option>
                                                         <option value="MS">Mississippi</option>
+                                                        <option value="MO">Missouri</option>
                                                         <option value="MT">Montana</option>
+                                                        <option value="NE">Nebraska</option>
+                                                        <option value="NV">Nevada</option>
                                                         <option value="NC">North Carolina</option>
                                                         <option value="ND">North Dakota</option>
-                                                        <option value="NE">Nebraska</option>
-                                                        <option value="NH">New Hampshire</option>
                                                         <option value="NJ">New Jersey</option>
+                                                        <option value="NH">New Hampshire</option>
                                                         <option value="NM">New Mexico</option>
-                                                        <option value="NV">Nevada</option>
                                                         <option value="NY">New York</option>
                                                         <option value="OH">Ohio</option>
                                                         <option value="OK">Oklahoma</option>
                                                         <option value="OR">Oregon</option>
                                                         <option value="PA">Pennsylvania</option>
-                                                        <option value="PR">Puerto Rico</option>
                                                         <option value="RI">Rhode Island</option>
                                                         <option value="SC">South Carolina</option>
                                                         <option value="SD">South Dakota</option>
                                                         <option value="TN">Tennessee</option>
                                                         <option value="TX">Texas</option>
                                                         <option value="UT">Utah</option>
-                                                        <option value="VA">Virginia</option>
                                                         <option value="VT">Vermont</option>
+                                                        <option value="VA">Virginia</option>
                                                         <option value="WA">Washington</option>
-                                                        <option value="WI">Wisconsin</option>
                                                         <option value="WV">West Virginia</option>
+                                                        <option value="WI">Wisconsin</option>
                                                         <option value="WY">Wyoming</option>
                                                 </select>
                                             </div>
                                         <div class="form-group col-md-2">
                                             <label for="inputzip">Zip</label>
-                                            <input type="text" class="form-control" id="inputzip">
+                                            <input type="number" class="form-control" id="inputzip" placeholder="Zip">
                                         </div>
             
                                 </div>  
                                 <button type="submit" class="btn btn-primary" id="submit">Submit</button>
-                                <button type="submit" class="btn btn-secondary" id="submitajax2">Sumbit OSAjax</button>
-                                <button type="submit" class="btn btn-secondary" id="submitajax">Submit ProP Ajax</button>
+
     
                             </form>
                 </div>
@@ -143,6 +141,9 @@
                 </div>            
             </div>
         </div>
+
+        <div class="w-75 mr-auto ml-auto" id="progress">
+              </div>
     
     <!-- Dumpsite for politicians-->
     <div class="dumpsite-box">
@@ -201,6 +202,8 @@
     var maploaded = false;
     
     var stateInput = "";
+
+    var stateSelector;
     
     var latitude;
     
@@ -233,12 +236,17 @@
     };
     
     function getaddress(event) {
+        $("#progress").addClass("progress");
+        $("#progress").html('<div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>');
         $("#federaldumpsite").empty();
         $("#statedumpsite").empty();
         console.log($("#addressline1").val());
         console.log($("#addressline2").val());
         console.log($("#inputCity").val());
         console.log($("#states").val());
+        if ($("#states").val() != ""){
+            stateSelector = $("#states").val();
+        }
         console.log($("#inputzip").val());
         addressquery = $("#addressline1").val() + " " + $("#addressline2").val() + " " +  $("#inputCity").val() + " " +  $("#states").val() + " " +  $("#inputzip").val();
         console.log(addressquery);
@@ -246,6 +254,9 @@
     }
     
      function geocodeAddress(geocoder, resultsMap) {
+
+            $("#progress").html('<div class="progress-bar" role="progressbar" style="width: 10%" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100"></div>');
+
          
             // address = document.getElementById('address').value;
             geocoder.geocode({'address': addressquery}, function(results, status) {
@@ -290,10 +301,21 @@
                     .then(function(instance) {
     
                         console.log(instance)
+
+                        console.log($("#states").val());
+
+                        if (stateSelector !=  undefined) {
+                            stateInput = (stateSelector);
+                            console.log(stateInput)
+                        }else {
     
                         stateInput = (instance[0].state);
+                        console.log(stateInput)
+
     
-    
+                        }
+
+                        $("#progress").html('<div class="progress-bar" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>');
     
                         // for (i=0; i<instance.length; i++) {
                             for (i=0; i<instance.length; i++) {
@@ -308,6 +330,12 @@
                                 console.log("District: " + instance[i].district);
                                 console.log("Office Address: " + instance[i].office_address);
                                 console.log("Image REF: " + instance[i].photo_url);
+                                if (instance[i].photo_url === "") {
+                                    var statepicurl = "https://upload.wikimedia.org/wikipedia/commons/8/89/Portrait_Placeholder.png";
+                                }
+                                else {
+                                    var statepicurl = instance[i].photo_url;
+                                }
     
                                 var newrow = $("<div>").addClass("container");
 
@@ -326,7 +354,7 @@
     
                                 var newimage = $("<img>");
     
-                                newimage.attr("src", instance[i].photo_url).attr("style", "width: 180px");
+                                newimage.attr("src", statepicurl).attr("id", "profilephoto");
     
                                 console.log(newimage);
     
@@ -336,6 +364,8 @@
                                 $("#statedumpsite").append(newrow);
 
                             };
+
+
     
                                 
                 var senators = [
@@ -367,8 +397,10 @@
                     var cocg = ["Cory Gardner", "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e7/Cory_Gardner_official_Senate_portrait.jpeg/220px-Cory_Gardner_official_Senate_portrait.jpeg","https://www.gardner.senate.gov/"];
                     var ctrb = ["Richard Blumenthal","https://upload.wikimedia.org/wikipedia/commons/thumb/3/35/Richard_Blumenthal_Official_Portrait.jpg/220px-Richard_Blumenthal_Official_Portrait.jpg","https://www.blumenthal.senate.gov/"];
                     var ctcm = ["Christopher Murphy","https://upload.wikimedia.org/wikipedia/commons/thumb/c/ca/Chris_Murphy%2C_official_portrait%2C_113th_Congress.jpg/220px-Chris_Murphy%2C_official_portrait%2C_113th_Congress.jpg" ,"https://www.murphy.senate.gov/"];
-                    var detc = ["Thomas Carper", "https://upload.wikimedia.org/wikipedia/commons/thumb/8/85/Tom_Carper%2C_official_portrait%2C_112th_Congress.jpg/220px-Tom_Carper%2C_official_portrait%2C_112th_Congress.jpg","https://www.carper.senate.gov/"];
-                    var decc = ["Christopher Coons", "https://upload.wikimedia.org/wikipedia/commons/thumb/5/56/Chris_Coons%2C_official_portrait%2C_112th_Congress.jpg/220px-Chris_Coons%2C_official_portrait%2C_112th_Congress.jpg","https://www.coons.senate.gov/"];
+                    var dcch = ["Chris Van Hollen", "https://upload.wikimedia.org/wikipedia/commons/thumb/6/67/Chris_Van_Hollen_official_portrait%2C_2010.jpg/240px-Chris_Van_Hollen_official_portrait%2C_2010.jpg" ,"https://www.vanhollen.senate.gov/"];
+                    var dcbc = ["Benjamin L. Cardin", "http://blog.executivebiz.com/wp-content/uploads/2010/12/cardin.jpg" ,"https://www.cardin.senate.gov/"];
+                    var detc = ["Thomas R. Carper", "https://upload.wikimedia.org/wikipedia/commons/thumb/8/85/Tom_Carper%2C_official_portrait%2C_112th_Congress.jpg/220px-Tom_Carper%2C_official_portrait%2C_112th_Congress.jpg","https://www.carper.senate.gov/"];
+                    var decc = ["Christopher A. Coons", "https://upload.wikimedia.org/wikipedia/commons/thumb/5/56/Chris_Coons%2C_official_portrait%2C_112th_Congress.jpg/220px-Chris_Coons%2C_official_portrait%2C_112th_Congress.jpg","https://www.coons.senate.gov/"];
                     var flbn = ["Bill Nelson", "https://upload.wikimedia.org/wikipedia/commons/thumb/2/23/Bill_Nelson.jpg/220px-Bill_Nelson.jpg","https://www.nelson.senate.gov/"];
                     var flmr = ["Marco Rubio", "https://upload.wikimedia.org/wikipedia/commons/thumb/e/eb/Senator_Rubio_official_portrait.jpg/220px-Senator_Rubio_official_portrait.jpg","https://www.rubio.senate.gov/"];
                     var gaji = ["Johnny Isakson", "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ef/Johnny_Isakson_official_Senate_photo.jpg/220px-Johnny_Isakson_official_Senate_photo.jpg","https://www.isakson.senate.gov/"];
@@ -393,7 +425,7 @@
                     var meak = ["Angus King", "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/Angus_King%2C_official_portrait%2C_113th_Congress.jpg/220px-Angus_King%2C_official_portrait%2C_113th_Congress.jpg" ,"https://www.king.senate.gov/"];
                     var mdbc = ["Benjamin Cardin", "https://upload.wikimedia.org/wikipedia/commons/thumb/f/fb/Ben_Cardin_official_Senate_portrait.jpg/220px-Ben_Cardin_official_Senate_portrait.jpg","https://www.cardin.senate.gov/"];
                     var mdcv = ["Chris VanHollen", "https://upload.wikimedia.org/wikipedia/commons/thumb/6/67/Chris_Van_Hollen_official_portrait%2C_2010.jpg/240px-Chris_Van_Hollen_official_portrait%2C_2010.jpg" ,"https://www.vanhollen.senate.gov/"];
-                    var maejw = ["Edward Markey", "https://upload.wikimedia.org/wikipedia/commons/thumb/9/94/Edward_Markey%2C_official_portrait%2C_114th_Congress.jpg/220px-Edward_Markey%2C_official_portrait%2C_114th_Congress.jpg" ,"https://www.young.senate.gov/"];
+                    var maem = ["Edward Markey", "https://upload.wikimedia.org/wikipedia/commons/thumb/9/94/Edward_Markey%2C_official_portrait%2C_114th_Congress.jpg/220px-Edward_Markey%2C_official_portrait%2C_114th_Congress.jpg" ,"https://www.young.senate.gov/"];
                     var maew = ["Elizabeth Warren", "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6a/Elizabeth_Warren%2C_official_portrait%2C_114th_Congress.jpg/220px-Elizabeth_Warren%2C_official_portrait%2C_114th_Congress.jpg","https://www.warren.senate.gov/"];
                     var migp = ["Gary Peters", "https://upload.wikimedia.org/wikipedia/commons/thumb/4/49/Gary_Peters%2C_official_portrait%2C_114th_Congress.jpg/220px-Gary_Peters%2C_official_portrait%2C_114th_Congress.jpg","https://www.peters.senate.gov/"];
                     var mids = ["Debbie Stabenow", "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/Debbie_Stabenow%2C_official_portrait.jpg/220px-Debbie_Stabenow%2C_official_portrait.jpg" ,"https://www.stabenow.senate.gov/"];
@@ -410,7 +442,7 @@
                     var nvcc = ["Catherine Cortez Masto", "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3d/Catherine_Cortez_Masto_official_portrait.jpg/220px-Catherine_Cortez_Masto_official_portrait.jpg" ,"https://www.cortezmasto.senate.gov/"];
                     var nvdh = ["Dean Heller", "https://upload.wikimedia.org/wikipedia/commons/thumb/6/69/Dean_Heller%2C_official_portrait%2C_114th_Congress.jpg/220px-Dean_Heller%2C_official_portrait%2C_114th_Congress.jpg" ,"https://www.heller.senate.gov/"];
                     var nhmh = ["Margaret Wood Hassan", "https://upload.wikimedia.org/wikipedia/commons/thumb/3/37/Maggie_Hassan%2C_official_portrait%2C_115th_Congress.jpg/220px-Maggie_Hassan%2C_official_portrait%2C_115th_Congress.jpg" ,"https://www.hassan.senate.gov/"];
-                    var nhmh = ["Jeanne Shaheen", "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a0/Jeanne_Shaheen%2C_official_Senate_photo_portrait%2C_2009.jpg/220px-Jeanne_Shaheen%2C_official_Senate_photo_portrait%2C_2009.jpg" ,"https://www.shaheen.senate.gov/"];
+                    var nhjs = ["Jeanne Shaheen", "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a0/Jeanne_Shaheen%2C_official_Senate_photo_portrait%2C_2009.jpg/220px-Jeanne_Shaheen%2C_official_Senate_photo_portrait%2C_2009.jpg" ,"https://www.shaheen.senate.gov/"];
                     var njcb = ["Cory Booker", "https://upload.wikimedia.org/wikipedia/commons/thumb/5/59/Cory_Booker%2C_official_portrait%2C_114th_Congress.jpg/220px-Cory_Booker%2C_official_portrait%2C_114th_Congress.jpg" ,"https://www.booker.senate.gov/"];
                     var njrm = ["Robert Menendez", "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ed/Robert_Menendez_official_Senate_portrait.jpg/220px-Robert_Menendez_official_Senate_portrait.jpg" ,"https://www.menendez.senate.gov/"];
                     var nmtu = ["Tom Udall", "https://upload.wikimedia.org/wikipedia/commons/thumb/4/40/Tom_Udall_official_photo.jpg/220px-Tom_Udall_official_photo.jpg" ,"https://www.udall.senate.gov/"];
@@ -421,7 +453,7 @@
                     var nctt = ["Thom Tillis", "https://upload.wikimedia.org/wikipedia/commons/thumb/9/95/Thom_Tillis_official_photo.jpg/220px-Thom_Tillis_official_photo.jpg" ,"https://www.tills.senate.gov/"];
                     var ndhh = ["Heidi Heitkamp", "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b3/Heidi_Heitkamp_official_portrait_113th_Congress.jpg/220px-Heidi_Heitkamp_official_portrait_113th_Congress.jpg" ,"https://www.tills.senate.gov/"];
                     var ndjh = ["John Hoeven", "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6d/Hoeven_Official_Portrait_2014.JPG/220px-Hoeven_Official_Portrait_2014.JPG" ,"https://www.tills.senate.gov/"];
-                    var ohsb = ["Sharrod Brown", "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d5/Sherrod_Brown_official_photo_2009.jpg/220px-Sherrod_Brown_official_photo_2009.jpg" ,"https://www.tills.senate.gov/"];
+                    var ohsb = ["Sherrod Brown", "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d5/Sherrod_Brown_official_photo_2009.jpg/220px-Sherrod_Brown_official_photo_2009.jpg" ,"https://www.tills.senate.gov/"];
                     var ohrp = ["Rob Portman", "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4f/Rob_Portman%2C_official_portrait%2C_112th_Congress.jpg/220px-Rob_Portman%2C_official_portrait%2C_112th_Congress.jpg" ,"https://www.tills.senate.gov/"];
                     var okji = ["James Inhofe", "https://upload.wikimedia.org/wikipedia/commons/thumb/6/68/Jim_Inhofe_official_senate_portrait_115th_congress.jpg/220px-Jim_Inhofe_official_senate_portrait_115th_congress.jpg" ,"https://www.tills.senate.gov/"];
                     var okjl = ["James Lankford", "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7e/Senator_James_Lankford_official_portrait_115th_congress.jpg/220px-Senator_James_Lankford_official_portrait_115th_congress.jpg" ,"https://www.tills.senate.gov/"];
@@ -441,6 +473,8 @@
                     var txtc = ["Ted Cruz", "https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/Ted_Cruz%2C_official_portrait%2C_113th_Congress.jpg/220px-Ted_Cruz%2C_official_portrait%2C_113th_Congress.jpg","https://www.cruz.senate.gov/"];
                     var utoh = ["Orrin Hatch", "https://upload.wikimedia.org/wikipedia/commons/thumb/3/33/Orrin_Hatch%2C_official_portrait%2C_112th_Congress.jpg/220px-Orrin_Hatch%2C_official_portrait%2C_112th_Congress.jpg","https://www.hatch.senate.gov/"];
                     var utml = ["Mike Lee", "https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/Mike_Lee%2C_official_portrait.jpg/220px-Mike_Lee%2C_official_portrait.jpg","https://www.lee.senate.gov/"];
+                    var vamw = ["Mark Warner", "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ae/Mark_Warner%2C_official_111th_Congress_photo_portrait.jpg/220px-Mark_Warner%2C_official_111th_Congress_photo_portrait.jpg" ,"https://www.warner.senate.gov/"]
+                    var vatk = ["Tim Kaine", "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1d/Tim_Kaine%2C_official_113th_Congress_photo_portrait.jpg/220px-Tim_Kaine%2C_official_113th_Congress_photo_portrait.jpg" ,"https://www.kaine.senate.gov/"]
                     var vtpl = ["Patrick Leahy", "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1c/Leahy2009.jpg/220px-Leahy2009.jpg","https://www.leahy.senate.gov/"];
                     var vtbs = ["Bernard Sanders", "https://upload.wikimedia.org/wikipedia/commons/thumb/d/de/Bernie_Sanders.jpg/220px-Bernie_Sanders.jpg","https://www.sanders.senate.gov/"];
                     var wamc = ["Maria Cantwell", "https://upload.wikimedia.org/wikipedia/commons/thumb/0/02/Maria_Cantwell%2C_official_portrait%2C_110th_Congress.jpg/220px-Maria_Cantwell%2C_official_portrait%2C_110th_Congress.jpg","https://www.cantwell.senate.gov/"];
@@ -459,6 +493,9 @@
                 console.log(addressquery);
     
                 console.log(stateInput);
+
+                $("#progress").html('<div class="progress-bar" role="progressbar" style="width: 50%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>');
+
     
             var PPqueryURL = "https://api.propublica.org/congress/v1/members/senate/" + stateInput + "/current.json";
     
@@ -480,16 +517,15 @@
                 // Log the queryURL
                 console.log(response);
                 // console.log(response.results);
+
+                $("#progress").html('<div class="progress-bar" role="progressbar" style="width: 75%" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>');
+
     
                 for (i=0; i<response.results.length; i++) {
                     console.log(response.results[i]);
                     console.log("Name: " + response.results[i].name);
 
-                    console.log((response.results[i].name).split(' ').join(''));
 
-                    var nospacename = (response.results[i].name).split(' ').join('');
-
-                    console.log (nospacename);
 
                     // for (j=0; j<senators.length; j++) {
                     //     if(senators[j].name === response.results[i].name) {
@@ -560,7 +596,7 @@
                         var senatepic = ($("<img>").attr("src", picurl));
                         console.log(senatepic);
                     }
-                    else if ((response.results[i].name) === "Cory Cardner") {
+                    else if ((response.results[i].name) === "Cory Gardner") {
                         var picurl = (cocg[1]);
                         var senatepic = ($("<img>").attr("src", picurl));
                         console.log(senatepic);
@@ -570,17 +606,27 @@
                         var senatepic = ($("<img>").attr("src", picurl));
                         console.log(senatepic);
                     }
-                    else if ((response.results[i].name) === "Christopher Murphy") {
+                    else if ((response.results[i].name) === "Christopher S. Murphy") {
                         var picurl = (ctcm[1]);
                         var senatepic = ($("<img>").attr("src", picurl));
                         console.log(senatepic);
                     }
-                    else if ((response.results[i].name) === "Thomas Carper") {
+                    else if ((response.results[i].name) === "Chris Van Hollen") {
+                        var picurl = (dcch[1]);
+                        var senatepic = ($("<img>").attr("src", picurl));
+                        console.log(senatepic);
+                    }
+                    else if ((response.results[i].name) === "Benjamin L. Cardin") {
+                        var picurl = (dcbc[1]);
+                        var senatepic = ($("<img>").attr("src", picurl));
+                        console.log(senatepic);
+                    }
+                    else if ((response.results[i].name) === "Thomas R. Carper") {
                         var picurl = (detc[1]);
                         var senatepic = ($("<img>").attr("src", picurl));
                         console.log(senatepic);
                     }
-                    else if ((response.results[i].name) === "Christopher Coons") {
+                    else if ((response.results[i].name) === "Christopher A. Coons") {
                         var picurl = (decc[1]);
                         var senatepic = ($("<img>").attr("src", picurl));
                         console.log(senatepic);
@@ -605,7 +651,7 @@
                         var senatepic = ($("<img>").attr("src", picurl));
                         console.log(senatepic);
                     }
-                    else if ((response.results[i].name) === "Mazie Hirono") {
+                    else if ((response.results[i].name) === "Mazie K. Hirono") {
                         var picurl = (himh[1]);
                         var senatepic = ($("<img>").attr("src", picurl));
                         console.log(senatepic);
@@ -615,12 +661,12 @@
                         var senatepic = ($("<img>").attr("src", picurl));
                         console.log(senatepic);
                     }
-                    else if ((response.results[i].name) === "Mike Crapo") {
+                    else if ((response.results[i].name) === "Michael D. Crapo") {
                         var picurl = (idmc[1]);
                         var senatepic = ($("<img>").attr("src", picurl));
                         console.log(senatepic);
                     }
-                    else if ((response.results[i].name) === "James Risch") {
+                    else if ((response.results[i].name) === "Jim Risch") {
                         var picurl = (idjr[1]);
                         var senatepic = ($("<img>").attr("src", picurl));
                         console.log(senatepic);
@@ -630,7 +676,7 @@
                         var senatepic = ($("<img>").attr("src", picurl));
                         console.log(senatepic);
                     }
-                    else if ((response.results[i].name) === "Richard Durbin") {
+                    else if ((response.results[i].name) === "Richard J. Durbin") {
                         var picurl = (ilrd[1]);
                         var senatepic = ($("<img>").attr("src", picurl));
                         console.log(senatepic);
@@ -645,12 +691,12 @@
                         var senatepic = ($("<img>").attr("src", picurl));
                         console.log(senatepic);
                     }
-                    else if ((response.results[i].name) === "Joni Earnst") {
+                    else if ((response.results[i].name) === "Joni Ernst") {
                         var picurl = (iaje[1]);
                         var senatepic = ($("<img>").attr("src", picurl));
                         console.log(senatepic);
                     }
-                    else if ((response.results[i].name) === "Chuck Grassley") {
+                    else if ((response.results[i].name) === "Charles E. Grassley") {
                         var picurl = (iacg[1]);
                         var senatepic = ($("<img>").attr("src", picurl));
                         console.log(senatepic);
@@ -705,7 +751,7 @@
                         var senatepic = ($("<img>").attr("src", picurl));
                         console.log(senatepic);
                     }
-                    else if ((response.results[i].name) === "Edward Markey") {
+                    else if ((response.results[i].name) === "Edward J. Markey") {
                         var picurl = (maem[1]);
                         var senatepic = ($("<img>").attr("src", picurl));
                         console.log(senatepic);
@@ -740,7 +786,7 @@
                         var senatepic = ($("<img>").attr("src", picurl));
                         console.log(senatepic);
                     }
-                    else if ((response.results[i].name) === "Rodger Wicker") {
+                    else if ((response.results[i].name) === "Roger Wicker") {
                         var picurl = (msrw[1]);
                         var senatepic = ($("<img>").attr("src", picurl));
                         console.log(senatepic);
@@ -785,7 +831,7 @@
                         var senatepic = ($("<img>").attr("src", picurl));
                         console.log(senatepic);
                     }
-                    else if ((response.results[i].name) === "Margaret Wood Hassan") {
+                    else if ((response.results[i].name) === "Margaret Hassan") {
                         var picurl = (nhmh[1]);
                         var senatepic = ($("<img>").attr("src", picurl));
                         console.log(senatepic);
@@ -815,12 +861,12 @@
                         var senatepic = ($("<img>").attr("src", picurl));
                         console.log(senatepic);
                     }
-                    else if ((response.results[i].name) === "Kirsten Gillibrand") {
+                    else if ((response.results[i].name) === "Kirsten E. Gillibrand") {
                         var picurl = (nykg[1]);
                         var senatepic = ($("<img>").attr("src", picurl));
                         console.log(senatepic);
                     }
-                    else if ((response.results[i].name) === "Charles Schumer") {
+                    else if ((response.results[i].name) === "Charles E. Schumer") {
                         var picurl = (nycs[1]);
                         var senatepic = ($("<img>").attr("src", picurl));
                         console.log(senatepic);
@@ -845,7 +891,7 @@
                         var senatepic = ($("<img>").attr("src", picurl));
                         console.log(senatepic);
                     }
-                    else if ((response.results[i].name) === "Sharrod Brown") {
+                    else if ((response.results[i].name) === "Sherrod Brown") {
                         var picurl = (ohsb[1]);
                         var senatepic = ($("<img>").attr("src", picurl));
                         console.log(senatepic);
@@ -855,7 +901,7 @@
                         var senatepic = ($("<img>").attr("src", picurl));
                         console.log(senatepic);
                     }
-                    else if ((response.results[i].name) === "James Inhofe") {
+                    else if ((response.results[i].name) === "James M. Inhofe") {
                         var picurl = (okji[1]);
                         var senatepic = ($("<img>").attr("src", picurl));
                         console.log(senatepic);
@@ -875,12 +921,12 @@
                         var senatepic = ($("<img>").attr("src", picurl));
                         console.log(senatepic);
                     }
-                    else if ((response.results[i].name) === "Patrick Tooomey") {
+                    else if ((response.results[i].name) === "Patrick J. Toomey") {
                         var picurl = (papt[1]);
                         var senatepic = ($("<img>").attr("src", picurl));
                         console.log(senatepic);
                     }
-                    else if ((response.results[i].name) === "Robert Casey") {
+                    else if ((response.results[i].name) === "Bob Casey") {
                         var picurl = (parc[1]);
                         var senatepic = ($("<img>").attr("src", picurl));
                         console.log(senatepic);
@@ -940,7 +986,7 @@
                         var senatepic = ($("<img>").attr("src", picurl));
                         console.log(senatepic);
                     }
-                    else if ((response.results[i].name) === "Orrin Hatch") {
+                    else if ((response.results[i].name) === "Orrin G. Hatch") {
                         var picurl = (utoh[1]);
                         var senatepic = ($("<img>").attr("src", picurl));
                         console.log(senatepic);
@@ -950,13 +996,23 @@
                         var senatepic = ($("<img>").attr("src", picurl));
                         console.log(senatepic);
                     }
-                    else if ((response.results[i].name) === "Patrick Leahy") {
+                    else if ((response.results[i].name) === "Patrick J. Leahy") {
                         var picurl = (vtpl[1]);
                         var senatepic = ($("<img>").attr("src", picurl));
                         console.log(senatepic);
                     }
                     else if ((response.results[i].name) === "Bernard Sanders") {
                         var picurl = (vtbs[1]);
+                        var senatepic = ($("<img>").attr("src", picurl));
+                        console.log(senatepic);
+                    }
+                    else if ((response.results[i].name) === "Mark Warner") {
+                        var picurl = (vamw[1]);
+                        var senatepic = ($("<img>").attr("src", picurl));
+                        console.log(senatepic);
+                    }
+                    else if ((response.results[i].name) === "Tim Kaine") {
+                        var picurl = (vatk[1]);
                         var senatepic = ($("<img>").attr("src", picurl));
                         console.log(senatepic);
                     }
@@ -975,7 +1031,7 @@
                         var senatepic = ($("<img>").attr("src", picurl));
                         console.log(senatepic);
                     }
-                    else if ((response.results[i].name) === "Joel Manchin") {
+                    else if ((response.results[i].name) === "Joe Manchin III") {
                         var picurl = (wvjm[1]);
                         var senatepic = ($("<img>").attr("src", picurl));
                         console.log(senatepic);
@@ -990,12 +1046,12 @@
                         var senatepic = ($("<img>").attr("src", picurl));
                         console.log(senatepic);
                     }
-                    else if ((response.results[i].name) === "John Barasso") {
+                    else if ((response.results[i].name) === "John Barrasso") {
                         var picurl = (wyjb[1]);
                         var senatepic = ($("<img>").attr("src", picurl));
                         console.log(senatepic);
                     }
-                    else if ((response.results[i].name) === "Michael Enzi") {
+                    else if ((response.results[i].name) === "Michael B. Enzi") {
                         var picurl = (wyme[1]);
                         var senatepic = ($("<img>").attr("src", picurl));
                         console.log(senatepic);
@@ -1022,7 +1078,8 @@
                     console.log("Twitter Handle: " + response.results[i].twitter_id);
                     console.log("Up for re-election: " + response.results[i].next_election);
                     
-    
+                    $("#progress").empty().removeClass("progress");
+
                 var newrow = $("<div>").addClass("row mb-3");
     
                 (newrow).html('<div class="col-sm-3"><img src="' + (senatepic[0].src) + '" id="profilephoto"></div><div class="col-sm-3">Name: ' + response.results[i].name + '</div><div class="col-sm-3">Party: ' + party + '</div><div class="col-sm-3">Up for Re-election in: ' + response.results[i].next_election + '</div>')
@@ -1030,13 +1087,15 @@
                 $("#federaldumpsite").prepend(newrow);
     
                 };
+
+
                 var federalheader = $("<div>").addClass("row");
                     federalheader.html("<h2>" + stateInput.toLocaleUpperCase() + "'s Federal Senate Members</h2>");
                 $("#federaldumpsite").prepend(federalheader);
-    
+
                     });
     
-    
+
                             
             });    
             
@@ -1044,16 +1103,12 @@
                 alert('Geocode was not successful for the following reason: ' + status);
                 }
             });
+
+
             maploaded = true;
 
             };
-    
-        $("#submitajax").on("click", function(event) {
 
-
-    
-    
-          });
     
     
     
