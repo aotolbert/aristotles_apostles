@@ -18,7 +18,7 @@
 .parallax {
     background-image: url(../images/WH-Image.jpg);
      /* Set a specific height */
-    min-height: 700px; 
+    min-height: 600px; 
     /* Create the parallax scrolling effect */
     background-attachment: fixed;
     background-position: center;
@@ -108,4 +108,13 @@ button:hover {
         padding-left: 60px;
         text-align: center;
         }
+    }
+    .well {
+        display: flex;
+        align-items: center;
+      }
+      .colors:hover { 
+        background-color: rgb(23, 175, 212, 0.6);
+        color: white;
+        text-decoration: none;
     }
