@@ -11,6 +11,8 @@
     <style>
     </style>
     <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="shortcut icon" type="image/png" href="/favicon.png"/>
+<link rel="shortcut icon" type="image/png" href="./assets/images/WMG_Logo_Favicon.png"/>
 </head>
 
 <body>
@@ -1086,9 +1088,9 @@
                     
                     $("#progress").empty().removeClass("progress");
 
-                var newrow = $("<div>").addClass("row mb-3");
+                var newrow = $("<div>").addClass("row mb-3 colors");
     
-                (newrow).html('<div class="col-sm-3"><img src="' + (senatepic[0].src) + '" id="profilephoto"></div><div class="col-sm-3">Name: ' + response.results[i].name + '</div><div class="col-sm-3">Party: ' + party + '</div><div class="col-sm-3">Up for Re-election in: ' + response.results[i].next_election + '</div>')
+                (newrow).html('<div class="col-lg-3 well p-2"><img src="' + (senatepic[0].src) + '" id="profilephoto"></div><div class="col-lg-3 well">Name: ' + response.results[i].name + '</div><div class="col-lg-3 well">Party: ' + party + '</div><div class="col-lg-3 well">Up for Re-election in: ' + response.results[i].next_election + '</div>')
                     
                 $("#federaldumpsite").prepend(newrow);
     

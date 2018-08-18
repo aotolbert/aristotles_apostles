@@ -93,3 +93,12 @@ button:hover {
         text-align: center;
         }
     }
+    .well {
+        display: flex;
+        align-items: center;
+      }
+      .colors:hover { 
+        background-color: rgb(23, 175, 212, 0.6);
+        color: white;
+        text-decoration: none;
+    }
