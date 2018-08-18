@@ -11,6 +11,8 @@
     <style>
     </style>
     <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="shortcut icon" type="image/png" href="/favicon.png"/>
+    <link rel="shortcut icon" type="image/png" href="./assets/images/WMG_Logo_Favicon.png"/>
 </head>
 
 <body>
@@ -331,6 +333,7 @@
                                 console.log("District: " + instance[i].district);
                                 console.log("Office Address: " + instance[i].office_address);
                                 console.log("Image REF: " + instance[i].photo_url);
+                                console.log("Person's URL: " + instance[i].url);
                                 if (instance[i].photo_url === "") {
                                     var statepicurl = "https://upload.wikimedia.org/wikipedia/commons/8/89/Portrait_Placeholder.png";
                                 }
@@ -360,7 +363,7 @@
                                 console.log(newimage);
     
     
-                                (newrow).html('<div class="row">' + govtlevel[0].innerHTML + '</div><div class="row row mb-3 shadow-lg p-3 mb-5 bg-white rounded"><div class="col-lg-3 makemiddle">' + newimage[0].outerHTML + '</div><div class="col-lg-3 makemiddle"><h4>Name:<br>' + instance[i].full_name + '</h4></div><div class="col-lg-3 makemiddle"><h4>Party:<br>' + instance[i].party + '</h4></div><div class="col-lg-3 makemiddle"><h4>District: ' + instance[i].district + '</h4></div></div>');
+                                (newrow).html('<div class="row">' + govtlevel[0].innerHTML + '</div><a href="' + instance[i].url + '" target="_blank"><div class="row row mb-3 shadow-lg p-3 mb-5 rounded divColor"><div class="col-lg-3 makemiddle">' + newimage[0].outerHTML + '</div><div class="col-lg-3 makemiddle"><h4>Name:<br>' + instance[i].full_name + '</h4></div><div class="col-lg-3 makemiddle"><h4>Party:<br>' + instance[i].party + '</h4></div><div class="col-lg-3 makemiddle"><h4>District: ' + instance[i].district + '</h4></div></div></a>');
                                     
                                 $("#statedumpsite").append(newrow);
 
@@ -535,11 +538,13 @@
  
                     if ((response.results[i].name) === "Doug Jones") {
                         var picurl = (aldj[1]);
+                        var personurl = (aldj[2]);
                         var senatepic = ($("<img>").attr("src", picurl));
                         console.log(senatepic);
                     }
                     else if ((response.results[i].name) === "Richard C. Shelby") {
                         var picurl = (alrs[1]);
+                        var personurl = (alrs[2]);
                         var senatepic = ($("<img>").attr("src", picurl));
                         console.log(senatepic);
                     }
@@ -1073,9 +1078,9 @@
                     
                     $("#progress").empty().removeClass("progress");
 
-                var newrow = $("<div>").addClass("row mb-3 shadow-lg p-3 mb-5 bg-white rounded");
+                var newrow = $("<div>").addClass("container");
     
-                (newrow).html('<div class="col-lg-3 makemiddle"><img src="' + (senatepic[0].src) + '" id="profilephoto"></div><div class="col-lg-3 makemiddle"><h4>Name:<br> ' + response.results[i].name + '</h4></div><div class="col-lg-3 makemiddle"><h4>Party: ' + party + '</h4></div><div class="col-lg-3 makemiddle"><h4>Up for Re-election in: ' + response.results[i].next_election + '</h4></div>')
+                (newrow).html('<a href="' + personurl + '" target="_blank"><div class="row mb-3 shadow-lg p-3 mb-5 rounded divColor"><div class="col-lg-3 makemiddle"><img src="' + (senatepic[0].src) + '" id="profilephoto"></div><div class="col-lg-3 makemiddle"><h4>Name:<br> ' + response.results[i].name + '</h4></div><div class="col-lg-3 makemiddle"><h4>Party: ' + party + '</h4></div><div class="col-lg-3 makemiddle"><h4>Up for Re-election in: ' + response.results[i].next_election + '</h4></div></div>')
                     
                 $("#federaldumpsite").prepend(newrow);
     
