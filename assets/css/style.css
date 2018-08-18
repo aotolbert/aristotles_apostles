@@ -48,6 +48,11 @@
     padding: 5%;
 }
 
+.makemiddle {
+    display: flex;
+    align-items: center;
+}
+
 .btn {
     margin-right: 5px;
     margin-bottom: 5px;
