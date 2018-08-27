@@ -1,2 +1,4 @@
 # aristotles_apostles
-Group Project
+Project 1 
+https://aotolbert.github.io/aristotles_apostles
+
