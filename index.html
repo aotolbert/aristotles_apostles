@@ -265,10 +265,10 @@
             geocoder.geocode({'address': addressquery}, function(results, status) {
                 resultsMap.setZoom(10);
                 console.log(results);
-                console.log(results[0].geometry.bounds);
-                    longitude = (results[0].geometry.viewport.b.b);
+                console.log(results[0].geometry.bounds.getCenter().lat());
+                    longitude = (results[0].geometry.bounds.getCenter().lng());
                     console.log(longitude);
-                    latitude = (results[0].geometry.viewport.f.f); 
+                    latitude = (results[0].geometry.bounds.getCenter().lat()); 
                     console.log(latitude);
                     // var dynamicstateInput = results[0].address_components[6].short_name;
                     // stateInput = dynamicstateInput;
@@ -291,7 +291,8 @@
     
     
                 var OSqueryurl = "https://cors-anywhere.herokuapp.com/https://openstates.org/api/v1/legislators/geo/?lat=" + latitude + "&long=" + longitude + "&apikey=" + OSAPIKey;
-    
+                
+                console.log(OSqueryurl, "OSQUERY")
     
                 $.ajax({
                     url: OSqueryurl,
