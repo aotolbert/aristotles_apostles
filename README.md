@@ -14,4 +14,7 @@ This applicaton will work with any address in the US including Alaska and Hawaii
 =======
 Group Project
 https://aotolbert.github.io/aristotles_apostles/
+<<<<<<< HEAD
 >>>>>>> .merge_file_a31284
+=======
+>>>>>>> 7cb8f6094565d0fa1a22848e064c814586272326

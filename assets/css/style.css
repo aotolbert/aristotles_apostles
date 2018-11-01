@@ -109,9 +109,12 @@ a {
         text-align: center;
         }
     }
+<<<<<<< HEAD
 <<<<<<< .merge_file_a16720
   
 =======
+=======
+>>>>>>> 7cb8f6094565d0fa1a22848e064c814586272326
     .well {
         display: flex;
         align-items: center;
@@ -120,5 +123,9 @@ a {
         background-color: rgb(23, 175, 212, 0.6);
         color: white;
         text-decoration: none;
+<<<<<<< HEAD
     }
 >>>>>>> .merge_file_a05824
+=======
+    }
+>>>>>>> 7cb8f6094565d0fa1a22848e064c814586272326
