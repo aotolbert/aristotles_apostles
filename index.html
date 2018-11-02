@@ -11,7 +11,11 @@
     <style>
     </style>
     <link rel="stylesheet" href="assets/css/style.css">
+<<<<<<< HEAD
+    <link rel="shortcut icon" type="image/png" href="./assets/images/WMG_Logo_Favicon.png"/>
+=======
     <link rel="shortcut icon" type="image/png" href="./assets/images/WMG_Logo_Favicon.png" />
+>>>>>>> 7cb8f6094565d0fa1a22848e064c814586272326
 </head>
 
 <body>
@@ -175,10 +179,17 @@
                     </li>
                     <li class="nav-item text-left">
                         <a class="nav-link" href="govtStructure.html">Govt. Structure</a>
+<<<<<<< HEAD
                     </li>
                     <li class="nav-item text-left">
                         <a class="nav-link" href="aboutUs.html">About Us</a>
                     </li>
+=======
+                    </li>
+                    <li class="nav-item text-left">
+                        <a class="nav-link" href="aboutUs.html">About Us</a>
+                    </li>
+>>>>>>> 7cb8f6094565d0fa1a22848e064c814586272326
                     </ul>
                 </div>
             </div>
@@ -193,9 +204,19 @@
 
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAu-AsJ69HTOHlJZBJ42aQOx6hldCxF4aY&callback=initMap">
-    </script>
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAu-AsJ69HTOHlJZBJ42aQOx6hldCxF4aY&callback=initMap"></script>
     <script>
+<<<<<<< HEAD
+        var maploaded = false;
+        var stateInput = "";
+        var stateSelector;
+        var latitude;
+        var longitude;
+        var address;
+        var PPAPIKey = "TQ2hslbjh61kVID2GwEOjzuQ8BzIauJScUHBfzJa";
+        var OSAPIKey = "61090add-67ca-4358-841d-7983d3231aa0";
+        var addressquery = "";
+=======
 
 
 
@@ -217,12 +238,21 @@
 
         var addressquery = "";
 
+>>>>>>> 7cb8f6094565d0fa1a22848e064c814586272326
         function initMap() {
             var map = new google.maps.Map(document.getElementById('map'), {
                 zoom: 3.5,
                 center: { lat: 39.8283, lng: -98.5795 }
             });
             var geocoder = new google.maps.Geocoder();
+<<<<<<< HEAD
+            $("#submit").on("click", function (instance) {
+                instance.preventDefault();
+                getaddress();
+                geocodeAddress(geocoder, map);
+            });
+        };
+=======
 
             $("#submit").on("click", function (instance) {
                 instance.preventDefault();
@@ -235,6 +265,7 @@
 
         };
 
+>>>>>>> 7cb8f6094565d0fa1a22848e064c814586272326
         function getaddress(event) {
             $("#progress").addClass("progress");
             $("#progress").html('<div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>');
@@ -250,6 +281,11 @@
             console.log($("#inputzip").val());
             addressquery = $("#addressline1").val() + " " + $("#addressline2").val() + " " + $("#inputCity").val() + " " + $("#states").val() + " " + $("#inputzip").val();
             console.log(addressquery);
+<<<<<<< HEAD
+        }
+        function geocodeAddress(geocoder, resultsMap) {
+            $("#progress").html('<div class="progress-bar" role="progressbar" style="width: 10%" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100"></div>');
+=======
 
         }
 
@@ -258,11 +294,22 @@
             $("#progress").html('<div class="progress-bar" role="progressbar" style="width: 10%" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100"></div>');
 
 
+>>>>>>> 7cb8f6094565d0fa1a22848e064c814586272326
             // address = document.getElementById('address').value;
             geocoder.geocode({ 'address': addressquery }, function (results, status) {
                 resultsMap.setZoom(10);
                 console.log(results);
                 console.log(results[0].geometry.bounds);
+<<<<<<< HEAD
+                longitude = (results[0].geometry.viewport.getCenter().lng());
+                console.log(longitude);
+                latitude = (results[0].geometry.viewport.getCenter().lat());
+                console.log(latitude);
+                // var dynamicstateInput = results[0].address_components[6].short_name;
+                // stateInput = dynamicstateInput;
+                if (status === 'OK') {
+                    resultsMap.setCenter(results[0].geometry.location);
+=======
                 longitude = (results[0].geometry.viewport.b.b);
                 console.log(longitude);
                 latitude = (results[0].geometry.viewport.f.f);
@@ -273,11 +320,18 @@
                 if (status === 'OK') {
                     resultsMap.setCenter(results[0].geometry.location);
 
+>>>>>>> 7cb8f6094565d0fa1a22848e064c814586272326
                     var marker = new google.maps.Marker({
                         map: resultsMap,
                         zoom: 10,
                         position: results[0].geometry.location
                     });
+<<<<<<< HEAD
+                    $("#statedumpsite").empty();
+                    console.log(addressquery);
+                    console.log("Latitude: " + latitude + " and Longitude: " + longitude);
+                    var OSqueryurl = "https://cors-anywhere.herokuapp.com/https://openstates.org/api/v1/legislators/geo/?lat=" + latitude + "&long=" + longitude + "&apikey=" + OSAPIKey;
+=======
 
                     $("#statedumpsite").empty();
 
@@ -290,11 +344,19 @@
                     var OSqueryurl = "https://cors-anywhere.herokuapp.com/https://openstates.org/api/v1/legislators/geo/?lat=" + latitude + "&long=" + longitude + "&apikey=" + OSAPIKey;
 
 
+>>>>>>> 7cb8f6094565d0fa1a22848e064c814586272326
                     $.ajax({
                         url: OSqueryurl,
                         headers: {
                             "X-API-Key": "61090add-67ca-4358-841d-7983d3231aa0",
                         },
+<<<<<<< HEAD
+                        method: "GET"
+                    })
+                        .then(function (instance) {
+                            console.log(instance)
+                            console.log($("#states").val());
+=======
 
                         method: "GET"
                     })
@@ -305,10 +367,19 @@
 
                             console.log($("#states").val());
 
+>>>>>>> 7cb8f6094565d0fa1a22848e064c814586272326
                             if (stateSelector != undefined) {
                                 stateInput = (stateSelector);
                                 console.log(stateInput)
                             } else {
+<<<<<<< HEAD
+                                stateInput = (instance[0].state);
+                                console.log(stateInput)
+                            }
+                            $("#progress").html('<div class="progress-bar" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>');
+                            // for (i=0; i<instance.length; i++) {
+                            for (i = 0; i < instance.length; i++) {
+=======
 
                                 stateInput = (instance[0].state);
                                 console.log(stateInput)
@@ -321,12 +392,16 @@
                             // for (i=0; i<instance.length; i++) {
                             for (i = 0; i < instance.length; i++) {
 
+>>>>>>> 7cb8f6094565d0fa1a22848e064c814586272326
                                 console.log(instance[i]);
                                 console.log("Name: " + instance[i].full_name);
                                 console.log("URID: " + instance[i].id);
                                 console.log("Party: " + instance[i].party);
+<<<<<<< HEAD
+=======
 
 
+>>>>>>> 7cb8f6094565d0fa1a22848e064c814586272326
                                 console.log("Emali: " + instance[i].email);
                                 console.log("District: " + instance[i].district);
                                 console.log("Office Address: " + instance[i].office_address);
@@ -338,15 +413,30 @@
                                 else {
                                     var statepicurl = instance[i].photo_url;
                                 }
+<<<<<<< HEAD
+=======
 
+>>>>>>> 7cb8f6094565d0fa1a22848e064c814586272326
                                 var newrow = $("<div>").addClass("container");
-
                                 var govtlevel = $("<div>").addClass("row");
+<<<<<<< HEAD
+=======
 
+>>>>>>> 7cb8f6094565d0fa1a22848e064c814586272326
                                 if (instance[i].chamber === "upper") {
                                     govtlevel.html("<h2>Your District's " + stateInput.toLocaleUpperCase() + " State Senator:</h2>");
                                     console.log(govtlevel[0].innerHTML);
                                 }
+<<<<<<< HEAD
+                                else if (instance[i].chamber === "lower") {
+                                    govtlevel.html("<h2>Your " + stateInput.toLocaleUpperCase() + " House Of Representatives Rep:</h2>");
+                                    console.log(govtlevel[0].innerHTML);
+                                }
+                                var newimage = $("<img>");
+                                newimage.attr("src", statepicurl).attr("id", "profilephoto");
+                                console.log(newimage);
+                                (newrow).html('<div class="row">' + govtlevel[0].innerHTML + '</div><a href="' + instance[i].url + '" target="_blank"><div class="row row mb-3 shadow-lg p-3 mb-5 rounded divColor"><div class="col-lg-3 makemiddle">' + newimage[0].outerHTML + '</div><div class="col-lg-3 makemiddle"><h4>Name:<br>' + instance[i].full_name + '</h4></div><div class="col-lg-3 makemiddle"><h4>Party:<br>' + instance[i].party + '</h4></div><div class="col-lg-3 makemiddle"><h4>District: ' + instance[i].district + '</h4></div></div></a>');
+=======
 
                                 else if (instance[i].chamber === "lower") {
                                     govtlevel.html("<h2>Your " + stateInput.toLocaleUpperCase() + " House Of Representatives Rep:</h2>");
@@ -363,14 +453,17 @@
 
                                 (newrow).html('<div class="row">' + govtlevel[0].innerHTML + '</div><a href="' + instance[i].url + '" target="_blank"><div class="row row mb-3 shadow-lg p-3 mb-5 rounded divColor"><div class="col-lg-3 makemiddle">' + newimage[0].outerHTML + '</div><div class="col-lg-3 makemiddle"><h4>Name:<br>' + instance[i].full_name + '</h4></div><div class="col-lg-3 makemiddle"><h4>Party:<br>' + instance[i].party + '</h4></div><div class="col-lg-3 makemiddle"><h4>District: ' + instance[i].district + '</h4></div></div></a>');
 
+>>>>>>> 7cb8f6094565d0fa1a22848e064c814586272326
                                 $("#statedumpsite").append(newrow);
-
                             };
+<<<<<<< HEAD
+=======
 
 
 
 
 
+>>>>>>> 7cb8f6094565d0fa1a22848e064c814586272326
                             var alrs = ["Richard Shelby", "http://media.al.com/news_impact/photo/richard-shelby-mugjpg-785ec02a1375ea78.jpg", "https://www.shelby.senate.gov/public/"];
                             var aldj = ["Doug Jones", "https://starsinforme-cyberpanthers.netdna-ssl.com/wp-content/uploads/2017/11/Doug-Jones.jpg", "https://www.jones.senate.gov/HomePage"];
                             var aklm = ["Lisa Murkowski", "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0d/Lisa_Murkowski_official_photo.jpg/220px-Lisa_Murkowski_official_photo.jpg", "https://www.murkowski.senate.gov/"];
@@ -414,7 +507,10 @@
                             var mdbc = ["Benjamin Cardin", "https://upload.wikimedia.org/wikipedia/commons/thumb/f/fb/Ben_Cardin_official_Senate_portrait.jpg/220px-Ben_Cardin_official_Senate_portrait.jpg", "https://www.cardin.senate.gov/"];
                             var mdcv = ["Chris VanHollen", "https://upload.wikimedia.org/wikipedia/commons/thumb/6/67/Chris_Van_Hollen_official_portrait%2C_2010.jpg/240px-Chris_Van_Hollen_official_portrait%2C_2010.jpg", "https://www.vanhollen.senate.gov/"];
                             var maem = ["Edward Markey", "https://upload.wikimedia.org/wikipedia/commons/thumb/9/94/Edward_Markey%2C_official_portrait%2C_114th_Congress.jpg/220px-Edward_Markey%2C_official_portrait%2C_114th_Congress.jpg", "https://www.young.senate.gov/"];
+<<<<<<< HEAD
+=======
 
+>>>>>>> 7cb8f6094565d0fa1a22848e064c814586272326
                             var maew = ["Elizabeth Warren", "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6a/Elizabeth_Warren%2C_official_portrait%2C_114th_Congress.jpg/220px-Elizabeth_Warren%2C_official_portrait%2C_114th_Congress.jpg", "https://www.warren.senate.gov/"];
                             var migp = ["Gary Peters", "https://upload.wikimedia.org/wikipedia/commons/thumb/4/49/Gary_Peters%2C_official_portrait%2C_114th_Congress.jpg/220px-Gary_Peters%2C_official_portrait%2C_114th_Congress.jpg", "https://www.peters.senate.gov/"];
                             var mids = ["Debbie Stabenow", "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/Debbie_Stabenow%2C_official_portrait.jpg/220px-Debbie_Stabenow%2C_official_portrait.jpg", "https://www.stabenow.senate.gov/"];
@@ -431,9 +527,13 @@
                             var nvcc = ["Catherine Cortez Masto", "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3d/Catherine_Cortez_Masto_official_portrait.jpg/220px-Catherine_Cortez_Masto_official_portrait.jpg", "https://www.cortezmasto.senate.gov/"];
                             var nvdh = ["Dean Heller", "https://upload.wikimedia.org/wikipedia/commons/thumb/6/69/Dean_Heller%2C_official_portrait%2C_114th_Congress.jpg/220px-Dean_Heller%2C_official_portrait%2C_114th_Congress.jpg", "https://www.heller.senate.gov/"];
                             var nhmh = ["Margaret Wood Hassan", "https://upload.wikimedia.org/wikipedia/commons/thumb/3/37/Maggie_Hassan%2C_official_portrait%2C_115th_Congress.jpg/220px-Maggie_Hassan%2C_official_portrait%2C_115th_Congress.jpg", "https://www.hassan.senate.gov/"];
+<<<<<<< HEAD
+                            var nhjs = ["Jeanne Shaheen", "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a0/Jeanne_Shaheen%2C_official_Senate_photo_portrait%2C_2009.jpg/220px-Jeanne_Shaheen%2C_official_Senate_photo_portrait%2C_2009.jpg", "https://www.shaheen.senate.gov/"];
+=======
 
                             var nhjs = ["Jeanne Shaheen", "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a0/Jeanne_Shaheen%2C_official_Senate_photo_portrait%2C_2009.jpg/220px-Jeanne_Shaheen%2C_official_Senate_photo_portrait%2C_2009.jpg", "https://www.shaheen.senate.gov/"];
 
+>>>>>>> 7cb8f6094565d0fa1a22848e064c814586272326
                             var njcb = ["Cory Booker", "https://upload.wikimedia.org/wikipedia/commons/thumb/5/59/Cory_Booker%2C_official_portrait%2C_114th_Congress.jpg/220px-Cory_Booker%2C_official_portrait%2C_114th_Congress.jpg", "https://www.booker.senate.gov/"];
                             var njrm = ["Robert Menendez", "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ed/Robert_Menendez_official_Senate_portrait.jpg/220px-Robert_Menendez_official_Senate_portrait.jpg", "https://www.menendez.senate.gov/"];
                             var nmtu = ["Tom Udall", "https://upload.wikimedia.org/wikipedia/commons/thumb/4/40/Tom_Udall_official_photo.jpg/220px-Tom_Udall_official_photo.jpg", "https://www.udall.senate.gov/"];
@@ -444,9 +544,13 @@
                             var nctt = ["Thom Tillis", "https://upload.wikimedia.org/wikipedia/commons/thumb/9/95/Thom_Tillis_official_photo.jpg/220px-Thom_Tillis_official_photo.jpg", "https://www.tills.senate.gov/"];
                             var ndhh = ["Heidi Heitkamp", "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b3/Heidi_Heitkamp_official_portrait_113th_Congress.jpg/220px-Heidi_Heitkamp_official_portrait_113th_Congress.jpg", "https://www.tills.senate.gov/"];
                             var ndjh = ["John Hoeven", "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6d/Hoeven_Official_Portrait_2014.JPG/220px-Hoeven_Official_Portrait_2014.JPG", "https://www.tills.senate.gov/"];
+<<<<<<< HEAD
+                            var ohsb = ["Sherrod Brown", "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d5/Sherrod_Brown_official_photo_2009.jpg/220px-Sherrod_Brown_official_photo_2009.jpg", "https://www.tills.senate.gov/"];
+=======
 
                             var ohsb = ["Sherrod Brown", "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d5/Sherrod_Brown_official_photo_2009.jpg/220px-Sherrod_Brown_official_photo_2009.jpg", "https://www.tills.senate.gov/"];
 
+>>>>>>> 7cb8f6094565d0fa1a22848e064c814586272326
                             var ohrp = ["Rob Portman", "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4f/Rob_Portman%2C_official_portrait%2C_112th_Congress.jpg/220px-Rob_Portman%2C_official_portrait%2C_112th_Congress.jpg", "https://www.tills.senate.gov/"];
                             var okji = ["James Inhofe", "https://upload.wikimedia.org/wikipedia/commons/thumb/6/68/Jim_Inhofe_official_senate_portrait_115th_congress.jpg/220px-Jim_Inhofe_official_senate_portrait_115th_congress.jpg", "https://www.tills.senate.gov/"];
                             var okjl = ["James Lankford", "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7e/Senator_James_Lankford_official_portrait_115th_congress.jpg/220px-Senator_James_Lankford_official_portrait_115th_congress.jpg", "https://www.tills.senate.gov/"];
@@ -478,6 +582,14 @@
                             var wirj = ["Ron Johnson", "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3d/Ron_Johnson%2C_official_portrait%2C_112th_Congress.jpg/220px-Ron_Johnson%2C_official_portrait%2C_112th_Congress.jpg", "https://www.johnson.senate.gov/"];
                             var wyjb = ["John Barasso", "https://upload.wikimedia.org/wikipedia/commons/thumb/f/fb/John_Barrasso_official_portrait_112th_Congress.jpg/220px-John_Barrasso_official_portrait_112th_Congress.jpg", "https://www.barasso.senate.gov/"];
                             var wyme = ["Michael Enzi", "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0e/Mike_Enzi%2C_official_portrait%2C_111th_Congress.jpg/220px-Mike_Enzi%2C_official_portrait%2C_111th_Congress.jpg", "https://www.enzi.senate.gov/"];
+<<<<<<< HEAD
+                            $("#federaldumpsite").empty();
+                            console.log(addressquery);
+                            console.log(stateInput);
+                            $("#progress").html('<div class="progress-bar" role="progressbar" style="width: 50%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>');
+                            var PPqueryURL = "https://api.propublica.org/congress/v1/members/senate/" + stateInput + "/current.json";
+                            console.log(PPqueryURL);
+=======
 
                             $("#federaldumpsite").empty();
 
@@ -494,22 +606,34 @@
 
                             console.log(PPqueryURL);
 
+>>>>>>> 7cb8f6094565d0fa1a22848e064c814586272326
                             $.ajax({
                                 url: PPqueryURL,
                                 headers: {
                                     "X-API-Key": "TQ2hslbjh61kVID2GwEOjzuQ8BzIauJScUHBfzJa"
                                 },
+<<<<<<< HEAD
+                                method: "GET",
+                                crossDomain: true
+=======
 
                                 method: "GET",
 
                                 crossDomain: true
 
 
+>>>>>>> 7cb8f6094565d0fa1a22848e064c814586272326
                             }).then(function (response) {
                                 var party = "";
                                 // Log the queryURL
                                 console.log(response);
                                 // console.log(response.results);
+<<<<<<< HEAD
+                                $("#progress").html('<div class="progress-bar" role="progressbar" style="width: 75%" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>');
+                                for (i = 0; i < response.results.length; i++) {
+                                    console.log(response.results[i]);
+                                    console.log("Name: " + response.results[i].name);
+=======
 
                                 $("#progress").html('<div class="progress-bar" role="progressbar" style="width: 75%" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>');
 
@@ -520,10 +644,17 @@
 
 
 
+>>>>>>> 7cb8f6094565d0fa1a22848e064c814586272326
                                     // for (j=0; j<senators.length; j++) {
                                     //     if(senators[j].name === response.results[i].name) {
                                     //     var picurl = senators[j].img
                                     //     var senatepic = ($("<img>").attr("src", picurl));
+<<<<<<< HEAD
+                                    // }
+                                    // else{
+                                    //     console.log("Do Nothing");
+                                    // }
+=======
 
                                     // }
 
@@ -534,6 +665,7 @@
 
 
 
+>>>>>>> 7cb8f6094565d0fa1a22848e064c814586272326
                                     if ((response.results[i].name) === "Doug Jones") {
                                         var picurl = (aldj[1]);
                                         var personurl = (aldj[2]);
@@ -667,7 +799,10 @@
                                         console.log(senatepic);
                                     }
                                     else if ((response.results[i].name) === "Mazie K. Hirono") {
+<<<<<<< HEAD
+=======
 
+>>>>>>> 7cb8f6094565d0fa1a22848e064c814586272326
                                         var picurl = (himh[1]);
                                         var personurl = (himh[2]);
                                         var senatepic = ($("<img>").attr("src", picurl));
@@ -1153,12 +1288,18 @@
                                         var senatepic = ($("<img>").attr("src", picurl));
                                         console.log(senatepic);
                                     }
+<<<<<<< HEAD
+=======
 
+>>>>>>> 7cb8f6094565d0fa1a22848e064c814586272326
                                     //Error Catcher
                                     else {
                                         var senatepic = ($("<img>").attr("src", "https://upload.wikimedia.org/wikipedia/commons/8/89/Portrait_Placeholder.png"));
                                     }
+<<<<<<< HEAD
+=======
 
+>>>>>>> 7cb8f6094565d0fa1a22848e064c814586272326
                                     console.log("URID: " + response.results[i].id);
                                     if (response.results[i].party === "D") {
                                         party = "Democrat";
@@ -1171,6 +1312,20 @@
                                     else {
                                         console.log("This is America you free thinking wackjob...");
                                     }
+<<<<<<< HEAD
+                                    console.log("Twitter Handle: " + response.results[i].twitter_id);
+                                    console.log("Up for re-election: " + response.results[i].next_election);
+                                    $("#progress").empty().removeClass("progress");
+                var newrow = $("<div>").addClass("container");
+                (newrow).html('<a href="' + personurl + '" target="_blank"><div class="row mb-3 shadow-lg p-3 mb-5 rounded divColor"><div class="col-lg-3 makemiddle"><img src="' + (senatepic[0].src) + '" id="profilephoto"></div><div class="col-lg-3 makemiddle"><h4>Name:<br> ' + response.results[i].name + '</h4></div><div class="col-lg-3 makemiddle"><h4>Party: ' + party + '</h4></div><div class="col-lg-3 makemiddle"><h4>Up for Re-election in: ' + response.results[i].next_election + '</h4></div></div>')
+                                    $("#federaldumpsite").prepend(newrow);
+                                };
+                                var federalheader = $("<div>").addClass("row");
+                                federalheader.html("<h2>" + stateInput.toLocaleUpperCase() + "'s Federal Senate Members</h2>");
+                                $("#federaldumpsite").prepend(federalheader);
+                            });
+                        });
+=======
 
                                     console.log("Twitter Handle: " + response.results[i].twitter_id);
                                     console.log("Up for re-election: " + response.results[i].next_election);
@@ -1196,19 +1351,22 @@
 
                         });
 
+>>>>>>> 7cb8f6094565d0fa1a22848e064c814586272326
                 } else {
                     alert('Geocode was not successful for the following reason: ' + status);
                 }
             });
-
-
             maploaded = true;
+<<<<<<< HEAD
+        };
+=======
 
         };
 
 
 
 
+>>>>>>> 7cb8f6094565d0fa1a22848e064c814586272326
     </script>
 
 </body>

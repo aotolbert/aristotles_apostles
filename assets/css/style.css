@@ -70,20 +70,17 @@ a {
 }
 
 
-button:hover {
-    background-color: grey;
-}
 
 
 
 /* defines container of the copyright section */
 
+/* defines container of the copyright section */
 .copyright {
     background-color: rgb(23, 175, 212);
     color: white;
     padding: 10px;
 }
-
 
   /* on desktop the titles font will be larger */
 
@@ -92,6 +89,9 @@ button:hover {
       font-size: 30px;
     }
   }
+
+    /* on mobile the titles font will shrink */
+
   
 @media screen and (max-width: 600px) {
     a.navTitle {
@@ -109,6 +109,12 @@ button:hover {
         text-align: center;
         }
     }
+<<<<<<< HEAD
+<<<<<<< .merge_file_a16720
+  
+=======
+=======
+>>>>>>> 7cb8f6094565d0fa1a22848e064c814586272326
     .well {
         display: flex;
         align-items: center;
@@ -117,4 +123,9 @@ button:hover {
         background-color: rgb(23, 175, 212, 0.6);
         color: white;
         text-decoration: none;
+<<<<<<< HEAD
     }
+>>>>>>> .merge_file_a05824
+=======
+    }
+>>>>>>> 7cb8f6094565d0fa1a22848e064c814586272326
